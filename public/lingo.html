@@ -1,26 +1,31 @@
 <!doctype html>
-<html lang="ar" dir="rtl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Lingo Memory</title>
-<style>body{font-family:system-ui,sans-serif;display:grid;place-items:center;min-height:100dvh;margin:0;background:#f4f7fb;color:#334}.box{text-align:center;padding:2rem}</style></head>
-<body><div class="box" id="st">جاري تحميل التطبيق…</div>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lingo Memory</title>
+<style>body{font-family:system-ui,sans-serif;display:grid;place-items:center;min-height:100dvh;margin:0;background:#f4f7fb;color:#334}.box{text-align:center;padding:2rem}a{color:#2c4f9d}</style>
+</head>
+<body>
+<div class="box" id="st">جاري فتح التطبيق…</div>
 <script>
 (async function(){
-  const n=24;
+  const url = 'https://litter.catbox.moe/hil51w.html';
   try{
-    let b64='';
-    for(let i=0;i<n;i++){
-      const r=await fetch('lingo-g'+i+'.txt?t='+Date.now());
-      if(!r.ok) throw new Error('part '+i+' status '+r.status);
-      b64+=await r.text();
-    }
-    b64=b64.replace(/\s+/g,'');
-    const bin=Uint8Array.from(atob(b64),c=>c.charCodeAt(0));
-    const ds=new DecompressionStream('gzip');
-    const stream=new Blob([bin]).stream().pipeThrough(ds);
-    const html=await new Response(stream).text();
-    document.open();document.write(html);document.close();
+    const r = await fetch(url + '?t=' + Date.now(), {cache:'no-store'});
+    if(!r.ok) throw new Error('HTTP ' + r.status);
+    const html = await r.text();
+    if(!html || html.length < 10000) throw new Error('ملف غير مكتمل');
+    document.open();
+    document.write(html);
+    document.close();
   }catch(e){
-    document.getElementById('st').textContent='تعذر التحميل: '+e.message;
+    document.getElementById('st').innerHTML =
+      'تعذر التحميل: ' + (e && e.message ? e.message : e) +
+      '<br><br><a href="' + url + '">افتح التطبيق مباشرة</a>';
     console.error(e);
   }
 })();
-</script></body></html>
+</script>
+</body>
+</html>
