@@ -10,7 +10,7 @@
 <div class="box" id="st">جاري تحميل التطبيق…</div>
 <script>
 (async function(){
-  const n = 6;
+  const n = 12;
   try{
     const parts = [];
     for(let i=0;i<n;i++){
@@ -18,7 +18,7 @@
       if(!r.ok) throw new Error('part '+i+' '+r.status);
       parts.push(await r.text());
     }
-    const b64 = parts.join('');
+    const b64 = parts.join('').replace(/\s+/g,'');
     const bin = atob(b64);
     const bytes = new Uint8Array(bin.length);
     for(let i=0;i<bin.length;i++) bytes[i]=bin.charCodeAt(i);
