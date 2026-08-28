@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bg: #f4f7fb;
+  --color-surface: #ffffff;
+  --color-fg: #162235;
+  --color-muted: #6c7b91;
+  --color-primary: #4b7bec;
+  --color-accent: #7658f6;
+  --color-border: #e1e8f2;
+  --radius: 0.75rem;
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+@layer base {
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+
+  html,
+  body {
+    margin: 0;
+    min-height: 100%;
+    background: var(--color-bg);
+    color: var(--color-fg);
+    overflow: hidden;
+  }
+}
+
+.lingo-shell {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  background: #150f4a;
+}
+
+.lingo-shell iframe {
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #f4f7fb;
+}
+
+.lingo-fallback {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  color: #f7f5ee;
+  text-align: center;
+  padding: 24px;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.lingo-fallback h1 {
+  margin: 0;
+  font-size: 42px;
+  font-weight: 900;
+  letter-spacing: -0.03em;
+}
+
+.lingo-fallback p {
+  margin: 10px 0 0;
+  font-size: 14px;
+  font-family: var(--font-sans);
+  opacity: 0.72;
+}
